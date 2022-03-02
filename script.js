@@ -24,22 +24,52 @@ const funSearch = () => {
           count++
           if (count == 21) {
             count = 0
+            cardGroup.innerHTML += `
+              <button id="btnShowMore" onclick="moreResult()" type="button" class="btn btn-light">Show More Results</button>
+            `
             break
           }
           cardGroup.innerHTML += `
             <div class="col my-3">
-              <div onClick="cardDetails(\'${e.slug}\')" class="mx-auto " style="width: 12rem; cursor: pointer">
+              <div onClick="cardDetails(\'${e.slug}\')" class="mx-auto" style="width: 12rem; cursor: pointer">
                 <img style="img-fluid" src="${e.image}" class="card-img-top" alt="${e.phone_name}" />
-                <div class="card card-body mt-3 p-2 rounded-3">
+                <div class="card card-body mt-2 p-2 rounded-3">
                   <h5 class="card-title">${e.phone_name}</h5>
                   <p class="card-text">
                       Brand: ${e.brand}
                   </p>
+                  <button type="button" class="btn btn-light w-100">More Details</button>
                 </div>
               </div>
             </div>
           `
         }
+      }
+      count = 0
+    })
+}
+
+const moreResult = () => {
+  fetch(fetchLink + inputSearch.value)
+    .then((response) => response.json())
+    .then((data) => {
+      const btnShowMore = (document.getElementById(
+        'btnShowMore'
+      ).style.display = 'none')
+      for (let i = 20; i < data.data.length; i++) {
+        cardGroup.innerHTML += `
+            <div class="col my-3">
+              <div onClick="cardDetails(\'${data.data[i].slug}\')" class="mx-auto " style="width: 12rem; cursor: pointer">
+                <img style="img-fluid" src="${data.data[i].image}" class="card-img-top" alt="${data.data[i].phone_name}" />
+                <div class="card card-body mt-3 p-2 rounded-3">
+                  <h5 class="card-title">${data.data[i].phone_name}</h5>
+                  <p class="card-text">
+                      Brand: ${data.data[i].brand}
+                  </p>
+                </div>
+              </div>
+            </div>
+          `
       }
       count = 0
     })
@@ -52,10 +82,8 @@ const checkExist = (s) => {
   if (typeof s !== 'undefined') {
     if (s) {
       return s
-    } 
-    else return 'Not Available'
-  } 
-  else return 'Not Available'
+    } else return 'Not Available'
+  } else return 'Not Available'
 }
 
 // Showing Details of selected card
@@ -67,8 +95,7 @@ const cardDetails = (link) => {
       scroll(0, 0)
       btnCollapse.classList.remove('d-none')
       cardDetailsGroup.classList.remove('d-none')
-      cardDetailsGroup.innerHTML = 
-        `
+      cardDetailsGroup.innerHTML = `
           <div class="d-lg-flex justify-content-lg-around align-items-lg-center" style="">
             <img style="width: 18rem" src="${
               data.data.image
@@ -114,7 +141,9 @@ const cardDetails = (link) => {
                   </tr>
                   <tr>
                     <th scope="row">Bluetooth:</th>
-                    <td colspan="2">${checkExist(data.data?.others?.Bluetooth)}</td>
+                    <td colspan="2">${checkExist(
+                      data.data?.others?.Bluetooth
+                    )}</td>
                   </tr>
                   <tr>
                     <th scope="row">GPS:</th>
