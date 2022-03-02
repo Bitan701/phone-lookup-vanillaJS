@@ -5,21 +5,24 @@ const cardDetailsGroup = document.getElementById('cardDetailsGroup')
 const fetchLink = 'https://openapi.programming-hero.com/api/phones?search='
 const fetchDetails = 'https://openapi.programming-hero.com/api/phone/'
 const btnCollapse = document.getElementById('btnCollapse')
+const loading = document.getElementById('loading')
 let count = 0
 
 // Loading all the search results data.data.forEach((e) =>
 const funSearch = () => {
   cardGroup.textContent = ''
   hideDetails()
+  loading.classList.remove('d-none')
 
   fetch(fetchLink + inputSearch.value)
     .then((response) => response.json())
     .then((data) => {
       if (data.data.length == 0) {
         cardGroup.innerHTML = `
-          <p> No Result </p>
+          <h2> No Results Found </h2>
         `
-      } else {
+      } 
+      else {
         for (e of data.data) {
           count++
           if (count == 21) {
@@ -46,6 +49,7 @@ const funSearch = () => {
         }
       }
       count = 0
+      loading.classList.add('d-none')
     })
 }
 

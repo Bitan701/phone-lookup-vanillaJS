@@ -12,7 +12,10 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-    <script src="https://kit.fontawesome.com/071fe75e7f.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/071fe75e7f.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
 
   <body>
@@ -27,9 +30,14 @@
           class="form-control"
           placeholder="iPhone 13"
           id="inputSearch"
-          value="sam"
         />
         <button class="btn btn-outline-secondary" type="button" id="btnSearch">
+          <span
+            id="loading"
+            class="d-none spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"
+          ></span>
           Search
         </button>
       </div>
