@@ -9,19 +9,18 @@ let count = 0
 
 // Loading all the search results data.data.forEach((e) =>
 const funSearch = () => {
-  cardGroup.textContent = ""
-  hideDetails();
+  cardGroup.textContent = ''
+  hideDetails()
 
   fetch(fetchLink + inputSearch.value)
     .then((response) => response.json())
     .then((data) => {
-      if (data.data.length == 0){
+      if (data.data.length == 0) {
         cardGroup.innerHTML = `
           <p> No Result </p>
         `
-      }
-      else {
-        for(e of data.data) {
+      } else {
+        for (e of data.data) {
           count++
           if (count == 21) {
             count = 0
@@ -48,6 +47,17 @@ const funSearch = () => {
 
 btnSearch.addEventListener('click', funSearch)
 
+// Checking if data exist
+const checkExist = (s) => {
+  if (typeof s !== 'undefined') {
+    if (s) {
+      return s
+    } 
+    else return 'Not Available'
+  } 
+  else return 'Not Available'
+}
+
 // Showing Details of selected card
 const cardDetails = (link) => {
   fetch(fetchDetails + link)
@@ -57,7 +67,8 @@ const cardDetails = (link) => {
       scroll(0, 0)
       btnCollapse.classList.remove('d-none')
       cardDetailsGroup.classList.remove('d-none')
-      cardDetailsGroup.innerHTML = `
+      cardDetailsGroup.innerHTML = 
+        `
           <div class="d-lg-flex justify-content-lg-around align-items-lg-center" style="">
             <img style="width: 18rem" src="${
               data.data.image
@@ -73,7 +84,7 @@ const cardDetails = (link) => {
                   </tr>
                   <tr>
                     <th scope="row">Release Date:</th>
-                    <td>${data.data.releaseDate}</td>
+                    <td>${checkExist(data.data.releaseDate)}</td>
                   </tr>
                   <tr>
                     <th scope="row">Chipset:</th>
@@ -93,6 +104,34 @@ const cardDetails = (link) => {
                       ', '
                     )}</td>
                   </tr>
+                  <tr>
+                    <th scope="row">Other:</th>
+                    <td colspan="2"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">WLAN:</th>
+                    <td colspan="2">${checkExist(data.data?.others?.WLAN)}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Bluetooth:</th>
+                    <td colspan="2">${checkExist(data.data?.others?.Bluetooth)}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">GPS:</th>
+                    <td colspan="2">${checkExist(data.data?.others?.GPS)}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">NFC:</th>
+                    <td colspan="2">${checkExist(data.data?.others?.NFC)}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Radio:</th>
+                    <td colspan="2">${checkExist(data.data?.others?.Radio)}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">USB:</th>
+                    <td colspan="2">${checkExist(data.data?.others?.USB)}</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -103,8 +142,8 @@ const cardDetails = (link) => {
 
 // Collapse details
 const hideDetails = () => {
-  cardDetailsGroup.classList.add("d-none")
-  btnCollapse.classList.add("d-none")
+  cardDetailsGroup.classList.add('d-none')
+  btnCollapse.classList.add('d-none')
 }
 
 btnCollapse.addEventListener('click', hideDetails)
