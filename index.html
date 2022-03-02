@@ -12,6 +12,7 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
+    <script src="https://kit.fontawesome.com/071fe75e7f.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
@@ -36,12 +37,27 @@
       <!-- Show Result Details -->
       <div id="cardDetailsGroup" class=""></div>
 
-      <button id="btnCollapse" type="button" class="btn btn-light float-end d-none mb-4">Collapse</button>
+      <hr
+        style="
+          height: 2px;
+          border-width: 0;
+          color: gray;
+          background-color: gray;
+        "
+      />
+
+      <button
+        id="btnCollapse"
+        type="button"
+        class="btn btn-light float-end d-none mb-4 fw-bold"
+      >
+        Collapse
+      </button>
 
       <!-- Show Result-->
       <div
         id="cardGroup"
-        class="row row-cols-1 row-cols-lg-3 g-4 mt-4"
+        class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-4"
       ></div>
     </main>
 

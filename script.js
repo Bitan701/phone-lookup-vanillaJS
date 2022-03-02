@@ -10,28 +10,37 @@ let count = 0
 // Loading all the search results data.data.forEach((e) =>
 const funSearch = () => {
   cardGroup.textContent = ""
+  hideDetails();
+
   fetch(fetchLink + inputSearch.value)
     .then((response) => response.json())
     .then((data) => {
-      for(e of data.data) {
-        count++
-        if (count == 21) {
-          count = 0
-          break
-        }
-        cardGroup.innerHTML += `
-          <div class="col my-3">
-            <div onClick="cardDetails(\'${e.slug}\')" class=" mx-auto " style="width: 10rem; cursor: pointer">
-              <img style="img-fluid" src="${e.image}" class="card-img-top" alt="${e.phone_name}" />
-              <div class="card card-body mt-3 p-2 rounded-3">
-                <h5 class="card-title">${e.phone_name}</h5>
-                <p class="card-text">
-                    Brand: ${e.brand}
-                </p>
+      if (data.data.length == 0){
+        cardGroup.innerHTML = `
+          <p> No Result </p>
+        `
+      }
+      else {
+        for(e of data.data) {
+          count++
+          if (count == 21) {
+            count = 0
+            break
+          }
+          cardGroup.innerHTML += `
+            <div class="col my-3">
+              <div onClick="cardDetails(\'${e.slug}\')" class="mx-auto " style="width: 12rem; cursor: pointer">
+                <img style="img-fluid" src="${e.image}" class="card-img-top" alt="${e.phone_name}" />
+                <div class="card card-body mt-3 p-2 rounded-3">
+                  <h5 class="card-title">${e.phone_name}</h5>
+                  <p class="card-text">
+                      Brand: ${e.brand}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        `
+          `
+        }
       }
       count = 0
     })
@@ -49,12 +58,10 @@ const cardDetails = (link) => {
       btnCollapse.classList.remove('d-none')
       cardDetailsGroup.classList.remove('d-none')
       cardDetailsGroup.innerHTML = `
-          <div class="d-lg-flex justify-content-lg-around align-items-lg-center" style="width: 15rem">
-            <img src="${
+          <div class="d-lg-flex justify-content-lg-around align-items-lg-center" style="">
+            <img style="width: 18rem" src="${
               data.data.image
-            }" width= "5000" class="card-img-top border border-primary" alt="${
-        data.data.name
-      }" />
+            }" width= "50" class="card-img-top my-3" alt="${data.data.name}"/>
             
             <div class="card-body">
               <h5 class="card-title">${data.data.name}</h5>
@@ -83,7 +90,7 @@ const cardDetails = (link) => {
                   <tr>
                     <th scope="row">Sensors:</th>
                     <td colspan="2">${data.data.mainFeatures.sensors.join(
-                      ' '
+                      ', '
                     )}</td>
                   </tr>
                 </tbody>
