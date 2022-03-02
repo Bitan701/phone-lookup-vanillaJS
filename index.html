@@ -13,6 +13,7 @@
       crossorigin="anonymous"
     />
   </head>
+
   <body>
     <main
       class="container d-flex flex-column justify-content-center align-items-center"
@@ -25,16 +26,21 @@
           class="form-control"
           placeholder="iPhone 13"
           id="inputSearch"
+          value="iphone"
         />
         <button class="btn btn-outline-secondary" type="button" id="btnSearch">
           Search
         </button>
       </div>
-      <!-- Show Result-->
-      <div id="cardGroup" class=""></div>
-
       <!-- Show Result Details -->
-      <div id="cardDetailsGroup" class=""></div>
+      <div id="cardDetailsGroup" class="row row-cols-1 align-self-start"></div>
+
+      <button id="btnCollapse" type="button" class="btn btn-light float-end d-none">🔼</button>
+      <!-- Show Result-->
+      <div
+        id="cardGroup"
+        class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"
+      ></div>
     </main>
 
     <script src="./script.js"></script>
